@@ -2,7 +2,7 @@ import UIKit
 
 final class MenuHeader:UIView {
     
-    private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
+    public let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
     public var mockData:[String] = [String]() {
         didSet {
             self.reloadCollection()

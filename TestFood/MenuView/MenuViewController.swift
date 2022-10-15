@@ -5,6 +5,7 @@ final class MenuViewController: UIViewController {
     var presenter: (ViewToPresenterMenuProtocol & InteractorToPresenterMenuProtocol)?
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
     let headerView = MenuHeader()
+    var headerViewTopConstraint:NSLayoutConstraint?
     
     enum LocationTitleConstantUI:CGFloat {
         case topAnchor = 15
@@ -63,13 +64,15 @@ final class MenuViewController: UIViewController {
         self.collectionView.collectionViewLayout = createCompositionalLayout()
         self.view.addSubview(collectionView)
         
+        headerViewTopConstraint = headerView.topAnchor.constraint(equalTo: locationTitle.bottomAnchor,constant: 10) // to manipulate header view (hide and show when scrolling)
         
         NSLayoutConstraint.activate([
             locationTitle.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: LocationTitleConstantUI.topAnchor.rawValue),
             locationTitle.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor,constant: LocationTitleConstantUI.leftAnchor.rawValue),
             locationButton.centerYAnchor.constraint(equalTo: locationTitle.centerYAnchor),
             locationButton.leftAnchor.constraint(equalTo: locationTitle.rightAnchor, constant: MenuViewController.locationButtonConstantUI.leftAnchor.rawValue),
-            headerView.topAnchor.constraint(equalTo: locationTitle.bottomAnchor,constant: 10),
+            headerViewTopConstraint!,
+            //headerView.topAnchor.constraint(equalTo: locationTitle.bottomAnchor,constant: 10),
             headerView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor),
             headerView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor),
             headerView.heightAnchor.constraint(equalToConstant: 200),
@@ -165,6 +168,20 @@ extension MenuViewController:UICollectionViewDelegate, UICollectionViewDataSourc
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
+        let y = scrollView.contentOffset.y
+        
+        let swippingDown = y <= 0
+        let shouldSnap = y > 30
+        let collectionHeight = headerView.collectionView.frame.height
+        
+        UIView.animate(withDuration: 0.3, animations: {
+            self.headerView.collectionView.alpha = swippingDown ? 1.0 : 0.0
+        })
+        
+        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: [], animations: {
+            self.headerViewTopConstraint?.constant = shouldSnap ? -collectionHeight : 0
+            self.view.layoutIfNeeded()
+        })
     }
 
 
