@@ -16,6 +16,19 @@ struct Pizza: Decodable {
     let ingredients: String
 }
 
+//MARK: - Drinks
+struct Drink:Decodable {
+    let name:String
+    let imageURL:String
+    let drinkDescription:String
+    
+    private enum CodingKeys:String,CodingKey {
+        case drinkDescription = "description"
+        case imageURL = "image_url"
+        case name
+    }
+}
+
 //MARK: - Wrapper
 
 struct WrapperPizza<T:Decodable>:Decodable {

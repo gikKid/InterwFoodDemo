@@ -12,15 +12,7 @@ class DataCollectionViewCell: UICollectionViewCell {
     
     var cellViewModel:DataCellViewModel? {
         didSet {
-            nameLabel.text = cellViewModel?.title
-            descriptionLabel.text = cellViewModel?.descriptText
-            if let price = cellViewModel?.price {
-                priceButton.setTitle("from \(price) p", for: .normal)
-            }
-            guard let urlString = cellViewModel?.image else {
-                return
-            }
-            self.fetchImage(urlString: urlString)
+            self.updateUI()
         }
     }
     
@@ -105,23 +97,16 @@ class DataCollectionViewCell: UICollectionViewCell {
     
 }
 
-
-//MARK: - Fetch image data
 extension DataCollectionViewCell {
-    private func fetchImage(urlString:String) {
-        guard let url = URL(string: urlString) else {
-            self.dataImageView.image = UIImage(systemName: GlobalConstant.failedImage)
+    private func updateUI() {
+        nameLabel.text = cellViewModel?.title
+        descriptionLabel.text = cellViewModel?.descriptText
+        if let price = cellViewModel?.price {
+            priceButton.setTitle("from \(price) p", for: .normal)
+        }
+        guard let urlString = cellViewModel?.image else {
             return
         }
-        let imageRequest = ImageRequest(url: url)
-        
-        DispatchQueue.global(qos: .userInitiated).async {
-            imageRequest.execute(withCompletion: { [weak self] image,error in
-                DispatchQueue.main.async {
-                    self?.activityIndicator.stopAnimating()
-                    self?.dataImageView.image = image
-                }
-            })
-        }
+        fetchImage(urlString: urlString, imageView: dataImageView, activityIndicator: activityIndicator)
     }
 }

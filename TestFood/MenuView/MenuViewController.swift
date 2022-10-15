@@ -4,6 +4,7 @@ final class MenuViewController: UIViewController {
     
     var presenter: (ViewToPresenterMenuProtocol & InteractorToPresenterMenuProtocol)?
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
+    let headerView = MenuHeader()
     
     enum LocationTitleConstantUI:CGFloat {
         case topAnchor = 15
@@ -22,7 +23,7 @@ final class MenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupView()
-        presenter?.viewDidLoad()
+        presenter?.viewDidLoad(headerView: headerView) 
     }
     
     //MARK: - Setup view
@@ -49,6 +50,9 @@ final class MenuViewController: UIViewController {
         }()
         self.view.addSubview(locationButton)
         
+        self.headerView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(headerView)
+        
         self.collectionView.translatesAutoresizingMaskIntoConstraints = false
         self.collectionView.showsVerticalScrollIndicator = false
         self.collectionView.backgroundColor = .clear
@@ -65,7 +69,11 @@ final class MenuViewController: UIViewController {
             locationTitle.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor,constant: LocationTitleConstantUI.leftAnchor.rawValue),
             locationButton.centerYAnchor.constraint(equalTo: locationTitle.centerYAnchor),
             locationButton.leftAnchor.constraint(equalTo: locationTitle.rightAnchor, constant: MenuViewController.locationButtonConstantUI.leftAnchor.rawValue),
-            collectionView.topAnchor.constraint(equalTo: locationTitle.bottomAnchor,constant: 10),
+            headerView.topAnchor.constraint(equalTo: locationTitle.bottomAnchor,constant: 10),
+            headerView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor),
+            headerView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor),
+            headerView.heightAnchor.constraint(equalToConstant: 200),
+            collectionView.topAnchor.constraint(equalTo: headerView.bottomAnchor,constant: 10),
             collectionView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor),
             collectionView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor),
             collectionView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
@@ -114,6 +122,7 @@ final class MenuViewController: UIViewController {
         
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 15, bottom: 0, trailing: 15)
+        
          
          return section
     }
@@ -152,6 +161,10 @@ extension MenuViewController:UICollectionViewDelegate, UICollectionViewDataSourc
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         presenter?.numberOfSections() ?? 0
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
     }
 
 

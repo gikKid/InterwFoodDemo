@@ -28,6 +28,7 @@
 		54B4EA1528F9AAD800F183DB /* MenuRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B4EA1428F9AAD800F183DB /* MenuRouter.swift */; };
 		54B4EA1728F9AAE600F183DB /* MenuInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B4EA1628F9AAE600F183DB /* MenuInteractor.swift */; };
 		54B4EA1928F9AAF400F183DB /* MenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B4EA1828F9AAF400F183DB /* MenuPresenter.swift */; };
+		54B9EC7628FB25950057AACB /* HeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B9EC7528FB25940057AACB /* HeaderCollectionViewCell.swift */; };
 		54D315A928FA250500707368 /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D315A828FA250500707368 /* GlobalFunctions.swift */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +56,7 @@
 		54B4EA1428F9AAD800F183DB /* MenuRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuRouter.swift; sourceTree = "<group>"; };
 		54B4EA1628F9AAE600F183DB /* MenuInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuInteractor.swift; sourceTree = "<group>"; };
 		54B4EA1828F9AAF400F183DB /* MenuPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPresenter.swift; sourceTree = "<group>"; };
+		54B9EC7528FB25940057AACB /* HeaderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCollectionViewCell.swift; sourceTree = "<group>"; };
 		54D315A828FA250500707368 /* GlobalFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -140,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				5464719A28F9C7F2005B83CE /* MenuHeader.swift */,
+				54B9EC7528FB25940057AACB /* HeaderCollectionViewCell.swift */,
 			);
 			path = Header;
 			sourceTree = "<group>";
@@ -252,6 +255,7 @@
 				54B4EA1328F9AAA500F183DB /* MenuProtocols.swift in Sources */,
 				54B4EA0D28F8D1DD00F183DB /* Constants.swift in Sources */,
 				54D315A928FA250500707368 /* GlobalFunctions.swift in Sources */,
+				54B9EC7628FB25950057AACB /* HeaderCollectionViewCell.swift in Sources */,
 				546471A828FA161A005B83CE /* NetworkRequest.swift in Sources */,
 				54B4EA1528F9AAD800F183DB /* MenuRouter.swift in Sources */,
 				54B4EA1928F9AAF400F183DB /* MenuPresenter.swift in Sources */,

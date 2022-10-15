@@ -14,7 +14,7 @@ protocol ViewToPresenterMenuProtocol {
     func numberOfRowsInDataSection() -> Int
     func setDataCell(collectionView:UICollectionView, forRowAt indexPath:IndexPath) -> DataCollectionViewCell
     func didSelectDataItemAt(collectionView:UICollectionView, indexPath:IndexPath)
-    func viewDidLoad()
+    func viewDidLoad(headerView:MenuHeader)
     
 }
 

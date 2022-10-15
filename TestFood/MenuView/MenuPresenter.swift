@@ -9,6 +9,7 @@ final class MenuPresenter: ViewToPresenterMenuProtocol {
     var pizza = [Pizza]()
     //FIXME: Mock data for categories
     var categoryMockData = ["Pizza","Combo","Dessertes","Drinks","Snacks"]
+    var headerMockData:[String] = [GlobalConstant.dataImageDiscountURL,GlobalConstant.dataImageDiscountURL,GlobalConstant.dataImageDiscountURL]
     var categoryCellViewModels = [CategoryCellViewModel]()
     var dataCellViewModels = [DataCellViewModel]() {
         didSet {
@@ -60,8 +61,9 @@ final class MenuPresenter: ViewToPresenterMenuProtocol {
         
     }
     
-    public func viewDidLoad() {
+    public func viewDidLoad(headerView:MenuHeader) {
         interactor?.fetchData()
+        headerView.mockData = headerMockData // to pass mock data 
     }
     
     private func createCategoryModel() {
