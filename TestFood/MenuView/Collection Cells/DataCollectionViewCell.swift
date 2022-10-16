@@ -30,7 +30,7 @@ class DataCollectionViewCell: UICollectionViewCell {
         case allAnchor = 5
     }
     enum PriceButtonConstantUI:CGFloat {
-        case bottomAnchor = -20
+        case topAnchor = 10
         case cornerRadius = 8
         case font = 15
     }
@@ -74,12 +74,18 @@ class DataCollectionViewCell: UICollectionViewCell {
         priceButton.titleLabel?.font = .systemFont(ofSize: PriceButtonConstantUI.font.rawValue)
         self.addSubview(priceButton)
         
-        
-        
         activityIndicator.hidesWhenStopped = true
         activityIndicator.startAnimating()
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         emptyView.addSubview(activityIndicator)
+        
+        let separatorView:UIView = {
+           let view = UIView()
+            view.translatesAutoresizingMaskIntoConstraints = false
+            view.backgroundColor = .secondarySystemBackground
+            return view
+        }()
+        self.addSubview(separatorView)
         
         NSLayoutConstraint.activate([
             emptyView.topAnchor.constraint(equalTo: self.topAnchor),
@@ -95,10 +101,14 @@ class DataCollectionViewCell: UICollectionViewCell {
             descriptionLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor,constant: DescriptionLabelConstantUI.topAnchor.rawValue),
             descriptionLabel.leftAnchor.constraint(equalTo: nameLabel.leftAnchor),
             descriptionLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: DescriptionLabelConstantUI.rightAnchor.rawValue),
-            priceButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: PriceButtonConstantUI.bottomAnchor.rawValue),
+            priceButton.bottomAnchor.constraint(equalTo: dataImageView.bottomAnchor,constant: -20),
             priceButton.rightAnchor.constraint(equalTo: descriptionLabel.rightAnchor),
             activityIndicator.centerYAnchor.constraint(equalTo: emptyView.centerYAnchor),
-            activityIndicator.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor)
+            activityIndicator.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor),
+            separatorView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            separatorView.leftAnchor.constraint(equalTo: self.leftAnchor),
+            separatorView.rightAnchor.constraint(equalTo: self.rightAnchor),
+            separatorView.heightAnchor.constraint(equalToConstant: 1)
         ])
     }
     
