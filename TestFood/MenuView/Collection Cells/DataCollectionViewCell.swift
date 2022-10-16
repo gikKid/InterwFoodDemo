@@ -18,10 +18,21 @@ class DataCollectionViewCell: UICollectionViewCell {
     
     enum NameLabelConstantUI:CGFloat {
         case font = 23
+        case topAnchor = 10
+        case leftAnchor = 20
     }
-    
     enum DescriptionLabelConstantUI:CGFloat {
         case font = 17
+        case topAnchor = 10
+        case rightAnchor = -10
+    }
+    enum DataImageViewConstantUI:CGFloat {
+        case allAnchor = 5
+    }
+    enum PriceButtonConstantUI:CGFloat {
+        case bottomAnchor = -20
+        case cornerRadius = 8
+        case font = 15
     }
     
     override init(frame: CGRect) {
@@ -54,13 +65,13 @@ class DataCollectionViewCell: UICollectionViewCell {
         
         priceButton.translatesAutoresizingMaskIntoConstraints = false
         priceButton.layer.masksToBounds = true
-        priceButton.layer.cornerRadius = 8
+        priceButton.layer.cornerRadius = PriceButtonConstantUI.cornerRadius.rawValue
         priceButton.setTitleColor(UIColor(named: GlobalConstant.purpleColor), for: .normal)
         priceButton.layer.borderColor = UIColor(named: GlobalConstant.purpleColor)?.cgColor
         priceButton.backgroundColor = .clear
         priceButton.layer.borderWidth = 1
         priceButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        priceButton.titleLabel?.font = .systemFont(ofSize: 15)
+        priceButton.titleLabel?.font = .systemFont(ofSize: PriceButtonConstantUI.font.rawValue)
         self.addSubview(priceButton)
         
         
@@ -75,16 +86,16 @@ class DataCollectionViewCell: UICollectionViewCell {
             emptyView.leftAnchor.constraint(equalTo: self.leftAnchor),
             emptyView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             emptyView.widthAnchor.constraint(equalToConstant: self.bounds.width / 3),
-            dataImageView.topAnchor.constraint(equalTo: emptyView.topAnchor,constant: 5),
-            dataImageView.leftAnchor.constraint(equalTo: emptyView.leftAnchor,constant: 5),
-            dataImageView.bottomAnchor.constraint(equalTo: emptyView.bottomAnchor,constant: 5),
+            dataImageView.topAnchor.constraint(equalTo: emptyView.topAnchor,constant: DataImageViewConstantUI.allAnchor.rawValue),
+            dataImageView.leftAnchor.constraint(equalTo: emptyView.leftAnchor,constant: DataImageViewConstantUI.allAnchor.rawValue),
+            dataImageView.bottomAnchor.constraint(equalTo: emptyView.bottomAnchor,constant: DataImageViewConstantUI.allAnchor.rawValue),
             dataImageView.widthAnchor.constraint(equalTo: emptyView.widthAnchor),
-            nameLabel.topAnchor.constraint(equalTo: emptyView.topAnchor,constant: 10),
-            nameLabel.leftAnchor.constraint(equalTo: emptyView.rightAnchor,constant: 20),
-            descriptionLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor,constant: 10),
+            nameLabel.topAnchor.constraint(equalTo: emptyView.topAnchor,constant: NameLabelConstantUI.topAnchor.rawValue),
+            nameLabel.leftAnchor.constraint(equalTo: emptyView.rightAnchor,constant: NameLabelConstantUI.leftAnchor.rawValue),
+            descriptionLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor,constant: DescriptionLabelConstantUI.topAnchor.rawValue),
             descriptionLabel.leftAnchor.constraint(equalTo: nameLabel.leftAnchor),
-            descriptionLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10),
-            priceButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20),
+            descriptionLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: DescriptionLabelConstantUI.rightAnchor.rawValue),
+            priceButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: PriceButtonConstantUI.bottomAnchor.rawValue),
             priceButton.rightAnchor.constraint(equalTo: descriptionLabel.rightAnchor),
             activityIndicator.centerYAnchor.constraint(equalTo: emptyView.centerYAnchor),
             activityIndicator.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor)

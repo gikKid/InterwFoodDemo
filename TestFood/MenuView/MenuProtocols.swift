@@ -15,7 +15,7 @@ protocol ViewToPresenterMenuProtocol {
     func setDataCell(collectionView:UICollectionView, forRowAt indexPath:IndexPath) -> DataCollectionViewCell
     func didSelectDataItemAt(collectionView:UICollectionView, indexPath:IndexPath)
     func viewDidLoad(headerView:MenuHeader,collectionView:UICollectionView)
-    
+    func scrollViewDidScroll(scrollView:UIScrollView,headerView:MenuHeader,headerViewTopConstraint:NSLayoutConstraint?,view:UIView)
 }
 
 //MARK: - View Output (Presenter -> View)

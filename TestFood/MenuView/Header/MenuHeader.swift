@@ -64,7 +64,7 @@ final class MenuHeader:UIView {
            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.8),
         heightDimension: .fractionalWidth(0.35))
            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        group.contentInsets = .init(top: 5, leading: 15, bottom: 0, trailing: 2)
+        group.contentInsets = .init(top: 15, leading: 15, bottom: 15, trailing: 2)
 
            let section = NSCollectionLayoutSection(group: group)
            section.orthogonalScrollingBehavior = .continuous

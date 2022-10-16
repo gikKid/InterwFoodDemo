@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 final class MenuPresenter: ViewToPresenterMenuProtocol {
-    
+
     var view: PresenterToViewMenuProtocol?
     var router: PresenterToRouterMenuProtocol?
     var interactor: PresenterToInteractorMenuProtocol?
@@ -65,6 +65,23 @@ final class MenuPresenter: ViewToPresenterMenuProtocol {
         interactor?.fetchData()
         headerView.mockData = headerMockData // to pass mock data
         collectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: .init())
+    }
+    
+    func scrollViewDidScroll(scrollView: UIScrollView, headerView: MenuHeader, headerViewTopConstraint:NSLayoutConstraint?,view: UIView) {
+        let y = scrollView.contentOffset.y
+        
+        let swippingDown = y <= 0
+        let shouldSnap = y > 30
+        let collectionHeight = headerView.collectionView.frame.height
+        
+        UIView.animate(withDuration: 0.3, animations: {
+            headerView.collectionView.alpha = swippingDown ? 1.0 : 0.0
+        })
+        
+        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: [], animations: {
+            headerViewTopConstraint?.constant = shouldSnap ? -collectionHeight : 0
+            view.layoutIfNeeded()
+        })
     }
     
     private func createCategoryModel() {

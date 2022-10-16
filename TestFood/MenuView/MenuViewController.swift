@@ -12,9 +12,17 @@ final class MenuViewController: UIViewController {
         case leftAnchor = 20
         case size = 18
     }
-    
-    enum locationButtonConstantUI:CGFloat {
+    enum LocationButtonConstantUI:CGFloat {
         case leftAnchor = 10
+    }
+    enum HeaderTopConstraintConstantUI:CGFloat {
+        case topAnchor = 10
+    }
+    enum HeaderViewConstantUI:CGFloat {
+        case height = 150
+    }
+    enum CollectionViewConstantUI:CGFloat {
+        case topAnchor = 10
     }
     
     private struct Constant {
@@ -64,18 +72,18 @@ final class MenuViewController: UIViewController {
         self.collectionView.collectionViewLayout = createCompositionalLayout()
         self.view.addSubview(collectionView)
         
-        headerViewTopConstraint = headerView.topAnchor.constraint(equalTo: locationTitle.bottomAnchor,constant: 10) // to manipulate header view (hide and show when scrolling)
+        headerViewTopConstraint = headerView.topAnchor.constraint(equalTo: locationTitle.bottomAnchor,constant: HeaderTopConstraintConstantUI.topAnchor.rawValue) // to manipulate header view (hide and show when scrolling)
         
         NSLayoutConstraint.activate([
             locationTitle.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: LocationTitleConstantUI.topAnchor.rawValue),
             locationTitle.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor,constant: LocationTitleConstantUI.leftAnchor.rawValue),
             locationButton.centerYAnchor.constraint(equalTo: locationTitle.centerYAnchor),
-            locationButton.leftAnchor.constraint(equalTo: locationTitle.rightAnchor, constant: MenuViewController.locationButtonConstantUI.leftAnchor.rawValue),
+            locationButton.leftAnchor.constraint(equalTo: locationTitle.rightAnchor, constant: MenuViewController.LocationButtonConstantUI.leftAnchor.rawValue),
             headerViewTopConstraint!,
             headerView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor),
             headerView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor),
-            headerView.heightAnchor.constraint(equalToConstant: 150),
-            collectionView.topAnchor.constraint(equalTo: headerView.bottomAnchor,constant: 10),
+            headerView.heightAnchor.constraint(equalToConstant: HeaderViewConstantUI.height.rawValue),
+            collectionView.topAnchor.constraint(equalTo: headerView.bottomAnchor,constant: CollectionViewConstantUI.topAnchor.rawValue),
             collectionView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor),
             collectionView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor),
             collectionView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
@@ -96,7 +104,7 @@ final class MenuViewController: UIViewController {
     }
     
     private func categoriesLayoutSection() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.26), heightDimension: .fractionalHeight(0.35))
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.26), heightDimension: .fractionalHeight(0.6))
          
          let item = NSCollectionLayoutItem(layoutSize: itemSize)
         item.contentInsets = .init(top: 0, leading: 0, bottom: 0, trailing: 10)
@@ -166,21 +174,7 @@ extension MenuViewController:UICollectionViewDelegate, UICollectionViewDataSourc
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-        let y = scrollView.contentOffset.y
-        
-        let swippingDown = y <= 0
-        let shouldSnap = y > 30
-        let collectionHeight = headerView.collectionView.frame.height
-        
-        UIView.animate(withDuration: 0.3, animations: {
-            self.headerView.collectionView.alpha = swippingDown ? 1.0 : 0.0
-        })
-        
-        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: [], animations: {
-            self.headerViewTopConstraint?.constant = shouldSnap ? -collectionHeight : 0
-            self.view.layoutIfNeeded()
-        })
+        presenter?.scrollViewDidScroll(scrollView: scrollView, headerView: headerView, headerViewTopConstraint:headerViewTopConstraint,view: self.view)
     }
 }
 

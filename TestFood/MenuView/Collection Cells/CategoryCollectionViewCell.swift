@@ -30,7 +30,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         self.layer.masksToBounds = true
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor(named: Constant.categoryColor)?.cgColor
-        self.layer.cornerRadius = 10
+        self.layer.cornerRadius = 12
         
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.textColor = UIColor(named: Constant.categoryColor)
