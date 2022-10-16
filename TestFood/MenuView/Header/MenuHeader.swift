@@ -57,14 +57,14 @@ final class MenuHeader:UIView {
 
     private func firstLayoutSection() -> NSCollectionLayoutSection {
 
-           let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension:
-        .fractionalHeight(1))
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension:
+            .fractionalHeight(1.0))
            let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.8),
         heightDimension: .fractionalWidth(0.35))
            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        group.contentInsets = .init(top: 0, leading: 15, bottom: 0, trailing: 2)
+        group.contentInsets = .init(top: 5, leading: 15, bottom: 0, trailing: 2)
 
            let section = NSCollectionLayoutSection(group: group)
            section.orthogonalScrollingBehavior = .continuous

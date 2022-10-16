@@ -61,9 +61,10 @@ final class MenuPresenter: ViewToPresenterMenuProtocol {
         
     }
     
-    public func viewDidLoad(headerView:MenuHeader) {
+    public func viewDidLoad(headerView:MenuHeader,collectionView:UICollectionView) {
         interactor?.fetchData()
-        headerView.mockData = headerMockData // to pass mock data 
+        headerView.mockData = headerMockData // to pass mock data
+        collectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: .init())
     }
     
     private func createCategoryModel() {

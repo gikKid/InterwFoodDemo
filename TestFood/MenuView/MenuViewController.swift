@@ -24,7 +24,7 @@ final class MenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupView()
-        presenter?.viewDidLoad(headerView: headerView) 
+        presenter?.viewDidLoad(headerView: headerView,collectionView:collectionView)
     }
     
     //MARK: - Setup view
@@ -72,10 +72,9 @@ final class MenuViewController: UIViewController {
             locationButton.centerYAnchor.constraint(equalTo: locationTitle.centerYAnchor),
             locationButton.leftAnchor.constraint(equalTo: locationTitle.rightAnchor, constant: MenuViewController.locationButtonConstantUI.leftAnchor.rawValue),
             headerViewTopConstraint!,
-            //headerView.topAnchor.constraint(equalTo: locationTitle.bottomAnchor,constant: 10),
             headerView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor),
             headerView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor),
-            headerView.heightAnchor.constraint(equalToConstant: 200),
+            headerView.heightAnchor.constraint(equalToConstant: 150),
             collectionView.topAnchor.constraint(equalTo: headerView.bottomAnchor,constant: 10),
             collectionView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor),
             collectionView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor),
@@ -183,8 +182,6 @@ extension MenuViewController:UICollectionViewDelegate, UICollectionViewDataSourc
             self.view.layoutIfNeeded()
         })
     }
-
-
 }
 
 
@@ -192,7 +189,7 @@ extension MenuViewController:UICollectionViewDelegate, UICollectionViewDataSourc
 extension MenuViewController: PresenterToViewMenuProtocol {
     func onFetchDataSuccessful() {
         DispatchQueue.main.async {
-            self.collectionView.reloadData()
+            self.collectionView.reloadSections(IndexSet(integer: 1))
         }
     }
     
